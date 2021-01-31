@@ -7,7 +7,18 @@ const config = merge(commonWebpackMerge, {
     devtool: 'inline-source-map', //将编译后的代码映射回原始源代码,更容易地追踪错误和警告,仅用于开发环境。
     devServer: {
         port: 3000,
-        contentBase: '../dist'
+        contentBase: '../dist',
+        proxy: {
+            '/api': {
+                target: 'http://localhost:3001',
+                changeOrigin: true,
+                ws: true,
+                pathRewrite: {
+                    /* 把/api转成空字符串，所以http://localhost:3001/api/getTest就相当于http://localhost:3001/getTest */
+                    '^/api': ''
+                }
+            }
+        }
     },
     module: {
         rules: [
