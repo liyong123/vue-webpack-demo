@@ -4,10 +4,12 @@ const webpack = require('webpack')
 const commonWebpackMerge = require('./webpack.common')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 
 const config = merge(commonWebpackMerge, {
     mode: 'production',
-    devtool: 'source-map',
+    devtool: false,
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: 'static/js/[name].[contenthash].js',
@@ -46,6 +48,13 @@ const config = merge(commonWebpackMerge, {
         new CleanWebpackPlugin({
         }),
     ],
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({}),
+            new CssMinimizerPlugin()
+        ]
+    }
 })
 
 module.exports = config

@@ -1,8 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-
-
 function resolve(dir) {
     return path.join(__dirname, dir)
 }
@@ -39,10 +37,21 @@ const config = {
                         loader: 'url-loader',
                         options: {
                             esModule: false,
-                            limit: 6000,
+                            limit: 4096,
                             name:'static/img/[name].[hash].[ext]'
                         },
-                    },
+                    }
+                ]
+            },
+            {
+                test: /\.(png|jpg|jepg|svg)$/,
+                use: [
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {
+                            
+                        }
+                    }
                 ]
             }
         ]
@@ -70,8 +79,8 @@ const config = {
         usedExports: true,  /* tree shaking 是一个术语，通常用于描述移除 JavaScript 上下文中的未引用代码(dead-code) ,包含usedExports和package.json中的sideEffects*/
     },
     performance: {
-        maxEntrypointSize: 400000,
-        maxAssetSize: 500000    
+        maxEntrypointSize: 50000000,
+        maxAssetSize: 30000000    
     }
 }
 

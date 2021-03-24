@@ -5,7 +5,7 @@ const commonWebpackMerge = require('./webpack.common')
 const config = merge(commonWebpackMerge, {
     mode: 'development',
     devtool: 'inline-source-map', //将编译后的代码映射回原始源代码,更容易地追踪错误和警告,仅用于开发环境。
-    devServer: {
+    devServer: { // build后 后端要nginx反向代理
         port: 3000,
         contentBase: '../dist',
         proxy: {

@@ -11,4 +11,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+     div {
+         font-size: 20px;
+     }
 </style>
