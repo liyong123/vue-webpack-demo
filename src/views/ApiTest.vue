@@ -10,10 +10,10 @@ import {
 } from '@/api/apiTest'
 export default {
     name: 'apiTest',
-    mounted() {
+    mounted () {
     },
     methods: {
-        requestTest() {
+        requestTest () {
             const params = {
                 name: 'bluesLi'
             }

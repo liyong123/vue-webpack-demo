@@ -7,6 +7,7 @@ const config = merge(commonWebpackMerge, {
     devtool: 'inline-source-map', //将编译后的代码映射回原始源代码,更容易地追踪错误和警告,仅用于开发环境。
     devServer: { // build后 后端要nginx反向代理
         port: 3000,
+        hot: true,
         contentBase: '../dist',
         proxy: {
             '/api': {
@@ -36,6 +37,9 @@ const config = merge(commonWebpackMerge, {
     plugins: [
         new webpack.DefinePlugin({
             "process.env.NODE_ENV": JSON.stringify("development")
+        }),
+        new webpack.HotModuleReplacementPlugin({
+            
         })
     ]
 })

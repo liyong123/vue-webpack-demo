@@ -1,15 +1,17 @@
 <template>
     <div class="home" style="color: #fff">
-        <span>home-page</span>
-        <img src="../assets/images/logo.png" alt="">
+        <div>{{$t('home.title')}}</div>
+        <div>{{$t('home.subTitle')}}</div>
+        <!-- <img src="../assets/images/logo.png" alt=""> -->
     </div>
 </template>
 <script>
 export default {
     name: 'home',
-    data() {
+    data () {
         return {
-            test: 'vue-test'
+            test: 'vue-test',
+            subTitle: this.$t('home.subTitle')
         }
     }
 }
@@ -21,6 +23,7 @@ export default {
         color: blue;
         background-image: url('../assets/images/meijing.jpg');
         background-repeat: no-repeat;
+        background-size: 100% 100%;
         img {
             height: 200px;
             width: 200px;

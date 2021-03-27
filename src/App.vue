@@ -1,14 +1,20 @@
 <template>
     <div id='app'>
-        <span>{{test}}</span>
-        <router-view></router-view>
+        <el-container>
+            <el-header>Header</el-header>
+            <el-container>
+                <el-aside width="200px">Aside</el-aside>
+                <el-main>
+                    <router-view></router-view>
+                </el-main>
+            </el-container>
+        </el-container>
     </div>
 </template>
 <script>
-import './assets/css/index.css'
 export default {
     name: 'app',
-    data() {
+    data () {
         return {
             test: 'vue-webapck-demo'
         }
@@ -17,8 +23,25 @@ export default {
 </script>
 <style lang="scss" scoped>
     #app {
-        flex: 1;
-        color: red;
-        height: 100%
+        height: 100%;
+    }
+    .el-container {
+        height: 100%;
+    }
+    .el-header {
+        background-color: #B3C0D1;
+        color: #333;
+        text-align: center;
+    }
+    .el-aside {
+        background-color: #D3DCE6;
+        color: #333;
+        text-align: center;
+    }
+
+    .el-main {
+        background-color: #E9EEF3;
+        color: #333;
+        text-align: center;
     }
 </style>

@@ -30,7 +30,18 @@ const config = merge(commonWebpackMerge, {
                     'postcss-loader',
                     'sass-loader'
                 ]
-            }
+            },
+            /* {
+                test: /\.(png|jpg|jepg|svg)$/,
+                use: [
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {
+                            
+                        }
+                    }
+                ]
+            } */
         ]
     },
     plugins: [
@@ -51,8 +62,11 @@ const config = merge(commonWebpackMerge, {
     optimization: {
         minimize: true,
         minimizer: [
-            new TerserPlugin({}),
-            new CssMinimizerPlugin()
+            new CssMinimizerPlugin(),
+            new TerserPlugin({
+                parallel: true
+            }),
+            
         ]
     }
 })

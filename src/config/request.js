@@ -11,33 +11,33 @@ const toLogin = () => {
 
 /* 异常处理 */
 const errorHandle = (status) => {
-    switch(status) {
-        case 400:
-            console.log('信息校验失败')
-            break
-        case 401:
-            toLogin()
-            console.log('认证失败')
-            break
-        case 403:
-            toLogin()
-            /* token过时了
+    switch (status) {
+    case 400:
+        console.log('信息校验失败')
+        break
+    case 401:
+        toLogin()
+        console.log('认证失败')
+        break
+    case 403:
+        toLogin()
+        /* token过时了
             清除token */
-            localStorage.removeItem('token')
-            console.log('token校验失败')
-            break
-        case 404:
-            console.log('请求的资源不存在')
-            break
+        localStorage.removeItem('token')
+        console.log('token校验失败')
+        break
+    case 404:
+        console.log('请求的资源不存在')
+        break
         /* 还有其他情况 ... */
-        default:
-            console.log('other error')
-            break
+    default:
+        console.log('other error')
+        break
     }
 }
 /* 创建axios实例 */
-const service = axios.create({ timeout: 3000 })
-service.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded' //发送给后端的格式
+const service = axios.create({timeout: 3000})
+service.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded' // 发送给后端的格式
 /* service.defaults.headers.common['Authorization'] = localStorage.getItem('token') */
 
 /* axios请求的拦截，对请求对象转化 */
@@ -54,30 +54,30 @@ service.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencod
 
 /* axios响应的拦截 */
 service.interceptors.response.use(response => {
-   /* 请求成功 */
-   /* if(response.status === 200) {
+    /* 请求成功 */
+    /* if(response.status === 200) {
        return Promise.resolve(response)
    } else {
        return Promise.reject(response)
    } */
-   if (response.data.code) {
-      if (response.data.code === 0) {
-          return response
-      } else {
-          /* 提示 */
-      }
-   } else {
-       return response
-   }
+    if (response.data.code) {
+        if (response.data.code === 0) {
+            return response
+        } else {
+            /* 提示 */
+        }
+    } else {
+        return response
+    }
 }, error => {
-   /* 请求失败 */
-   const { response } = error
-   if (response) {
-      errorHandle(response.status)
-   } else {
-       console.log('net error')
-   }
-   return Promise.reject(response)
+    /* 请求失败 */
+    const {response} = error
+    if (response) {
+        errorHandle(response.status)
+    } else {
+        console.log('net error')
+    }
+    return Promise.reject(response)
 })
 
 const request = (params) => {
@@ -91,4 +91,3 @@ const request = (params) => {
 }
 
 export default request
-

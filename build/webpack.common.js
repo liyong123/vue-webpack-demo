@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const ESLintPlugin = require('eslint-webpack-plugin');
 function resolve(dir) {
     return path.join(__dirname, dir)
 }
@@ -31,15 +32,13 @@ const config = {
                 loader: 'vue-loader'
             },
             {
-                test: /\.(png|jpg|jepg|svg)$/,
+                test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
                 use: [
                     {
                         loader: 'url-loader',
                         options: {
-                            esModule: false,
-                            limit: 4096,
-                            name:'static/img/[name].[hash].[ext]'
-                        },
+                            name:'static/font/[name].[hash:7].[ext]'
+                        }
                     }
                 ]
             },
@@ -47,13 +46,16 @@ const config = {
                 test: /\.(png|jpg|jepg|svg)$/,
                 use: [
                     {
-                        loader: 'image-webpack-loader',
+                        loader: 'url-loader',
                         options: {
-                            
-                        }
+                            esModule: false,
+                            limit: 4096,
+                            name:'static/img/[name].[hash:7].[ext]'
+                        },
                     }
                 ]
             }
+            
         ]
     },
     plugins: [
@@ -62,6 +64,10 @@ const config = {
             template:'./index.html',
         }),
         new VueLoaderPlugin(),
+        new ESLintPlugin({ // 替代eslint-loader
+            extensions: ['js', 'vue'],
+            formatter: require('eslint-friendly-formatter')
+        })
     ],
     // 缓存优化2
     optimization: {
